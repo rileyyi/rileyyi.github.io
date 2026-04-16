@@ -62,8 +62,8 @@ section{position:relative;z-index:2}
 
 /* Section labels in accent orange */
 .section-label-accent{font-size:10px;font-weight:300;letter-spacing:.2em;text-transform:uppercase;color:var(--accent);margin-bottom:40px}
-.section-label-wrap{position:relative;display:inline-block;margin-bottom:40px}
-.section-label-wrap .section-label-accent{margin-bottom:0}
+.section-label-wrap{position:relative;display:inline-block;margin-bottom:40px;overflow:visible}
+.section-label-wrap .section-label-accent{margin-bottom:0;position:relative;z-index:1}
 .section-label-wrap canvas{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);pointer-events:none}
 
 section{display:flex;align-items:center}
@@ -163,7 +163,7 @@ section{display:flex;align-items:center}
 <div class="divider-line"></div>
 <section id="work"><canvas class="work-bg" id="workBg"></canvas><div class="section-header"><span class="section-label-wrap reveal"><canvas class="label-poly" data-color="dark"></canvas><span class="section-label-accent">Projects</span></span></div><div class="work-list"><div class="work-item reveal stagger-1"><span class="work-num">01</span><a href="https://lastbart.pythonanywhere.com/" target="_blank" rel="noopener"><span class="work-title">Last BART</span></a><span class="work-type">Transit Tracking Tool</span><span class="work-year">2026</span></div><div class="work-item reveal stagger-2"><span class="work-num">02</span><span class="work-title">E-Commerce Store</span><span class="work-type">Amazon / Etsy / eBay / Shopify</span><span class="work-year">2012&ndash;2026</span></div></div></section>
 <div class="divider-line"></div>
-<section id="services"><div class="section-label-accent reveal">Pursuits & interests</div><div class="services-grid"><div class="service-card reveal stagger-1"><canvas id="bgCycling"></canvas><div class="service-num">01</div><h3 class="service-name">Gravel<br>Cycling</h3><p class="service-desc">Long days on dirt roads with good people. There's something about the rhythm of a gravel ride that resets everything.</p></div><div class="service-card reveal stagger-2"><canvas id="bgClimbing"></canvas><div class="service-num">02</div><h3 class="service-name">Ice<br>Climbing</h3><p class="service-desc">Vertical problem-solving in the cold. It demands full presence and there's no room to think about anything else on the wall.</p></div><div class="service-card reveal stagger-3"><canvas id="bgCivic"></canvas><div class="service-num">03</div><h3 class="service-name">Community<br>& Civic</h3><p class="service-desc">Showing up for the neighborhood through infrastructure advocacy, local organizing, and the quiet work that makes a place feel like home.</p></div><div class="service-card reveal stagger-4"><canvas id="bgDogs"></canvas><div class="service-num">04</div><h3 class="service-name">Dogs</h3><p class="service-desc">Life with a French Bulldog and a Pug. They don't care about product roadmaps and that's exactly the point.</p></div></div></section>
+<section id="services"><div class="section-label-wrap reveal"><canvas class="label-poly" data-color="light"></canvas><div class="section-label-accent">Pursuits</div></div><div class="services-grid"><div class="service-card reveal stagger-1"><canvas id="bgCycling"></canvas><div class="service-num">01</div><h3 class="service-name">Gravel<br>Cycling</h3><p class="service-desc">Long days on dirt roads with good people. There's something about the rhythm of a gravel ride that resets everything.</p></div><div class="service-card reveal stagger-2"><canvas id="bgClimbing"></canvas><div class="service-num">02</div><h3 class="service-name">Ice<br>Climbing</h3><p class="service-desc">Vertical problem-solving in the cold. It demands full presence and there's no room to think about anything else on the wall.</p></div><div class="service-card reveal stagger-3"><canvas id="bgCivic"></canvas><div class="service-num">03</div><h3 class="service-name">Community<br>& Civic</h3><p class="service-desc">Showing up for the neighborhood through infrastructure advocacy, local organizing, and the quiet work that makes a place feel like home.</p></div><div class="service-card reveal stagger-4"><canvas id="bgDogs"></canvas><div class="service-num">04</div><h3 class="service-name">Dogs</h3><p class="service-desc">Life with a French Bulldog and a Pug. They don't care about product roadmaps and that's exactly the point.</p></div></div></section>
 <section id="contact"><div class="contact-glow"></div><p class="big-cta reveal">Product ops, side projects,<br>or a gravel ride.<br><a href="https://www.linkedin.com/in/riley-yi" target="_blank" rel="noopener">Let's connect.</a></p><div class="contact-footer reveal"><span class="copy">&copy; 2026 Riley Yi, San Francisco, CA</span></div></section>
 <div id="phiTrigger">&phi;</div><div id="phiOverlay"><div id="phiText"></div></div>
 
@@ -425,54 +425,62 @@ var ce=document.getElementById('cursor'),re=document.getElementById('cursorRing'
   polys.forEach(function(c){
     var wrap=c.parentElement;
     var isLight=c.dataset.color==='light';
-    // Generate 7 vertices with random params
     var verts=[];
     for(var i=0;i<7;i++){
       verts.push({
         a:(i/7)*Math.PI*2-Math.PI/2,
-        speed:0.4+Math.random()*0.5,
+        speed:0.3+Math.random()*0.4,
         phase:Math.random()*Math.PI*2,
-        amp:0.08+Math.random()*0.12,
-        drift:0.1+Math.random()*0.15
+        amp:0.03+Math.random()*0.05,
+        drift:0.05+Math.random()*0.08
       });
     }
     polyData.push({canvas:c,wrap:wrap,verts:verts,isLight:isLight});
   });
 
-  var time=0;
-  function draw(){
-    time+=0.01;
-    polyData.forEach(function(p){
+  var time2=0;
+  function drawPolys(){
+    time2+=0.01;
+    for(var pi=0;pi<polyData.length;pi++){
+      var p=polyData[pi];
       var wrap=p.wrap;
       var rect=wrap.getBoundingClientRect();
-      var padX=24,padY=14;
-      var w=rect.width+padX*2,h=rect.height+padY*2;
+      if(rect.width<1)continue;
+      var padX=16,padY=12;
+      var w=Math.round(rect.width+padX*2);
+      var h=Math.round(rect.height+padY*2);
       var c=p.canvas;
-      c.width=w*dpr;c.height=h*dpr;
-      c.style.width=w+'px';c.style.height=h+'px';
-      var ctx=c.getContext('2d');
-      ctx.setTransform(dpr,0,0,dpr,0,0);
-      ctx.clearRect(0,0,w,h);
-      var cx=w/2,cy=h/2;
-      var rx=w/2-2,ry=h/2-2;
-      ctx.beginPath();
-      p.verts.forEach(function(v,i){
-        var aOff=Math.sin(time*v.speed+v.phase)*v.drift;
+      c.width=w*dpr;
+      c.height=h*dpr;
+      c.style.width=w+'px';
+      c.style.height=h+'px';
+      var ctx2=c.getContext('2d');
+      ctx2.setTransform(dpr,0,0,dpr,0,0);
+      var cx2=w/2,cy2=h/2;
+      var rx2=w/2-3,ry2=h/2-2;
+      ctx2.beginPath();
+      var fx,fy;
+      for(var vi=0;vi<p.verts.length;vi++){
+        var v=p.verts[vi];
+        var aOff=Math.sin(time2*v.speed+v.phase)*v.drift;
         var a=v.a+aOff;
-        var rxi=rx*(1+Math.sin(time*v.speed*0.7+v.phase*2)*v.amp);
-        var ryi=ry*(1+Math.cos(time*v.speed*0.9+v.phase*1.5)*v.amp);
-        var px=cx+Math.cos(a)*rxi;
-        var py=cy+Math.sin(a)*ryi;
-        if(i===0)ctx.moveTo(px,py);else ctx.lineTo(px,py);
-      });
-      ctx.closePath();
-      ctx.strokeStyle=p.isLight?'rgba(240,237,232,0.3)':'rgba(17,17,16,0.2)';
-      ctx.lineWidth=0.8;
-      ctx.stroke();
-    });
-    requestAnimationFrame(draw);
+        var rxi=rx2*(1+Math.sin(time2*v.speed*0.7+v.phase*2)*v.amp);
+        var ryi=ry2*(1+Math.cos(time2*v.speed*0.9+v.phase*1.5)*v.amp);
+        var ppx=cx2+Math.cos(a)*rxi;
+        var ppy=cy2+Math.sin(a)*ryi;
+        if(vi===0){fx=ppx;fy=ppy;ctx2.moveTo(ppx,ppy);}
+        else{ctx2.lineTo(ppx,ppy);}
+      }
+      ctx2.lineTo(fx,fy);
+      ctx2.closePath();
+      ctx2.lineJoin='round';
+      ctx2.strokeStyle=p.isLight?'rgba(240,237,232,0.3)':'rgba(17,17,16,0.2)';
+      ctx2.lineWidth=0.8;
+      ctx2.stroke();
+    }
+    requestAnimationFrame(drawPolys);
   }
-  if(polyData.length)requestAnimationFrame(draw);
+  requestAnimationFrame(drawPolys);
 })();
 document.addEventListener('mousemove',function(e){ce.style.left=e.clientX+'px';ce.style.top=e.clientY+'px';re.style.left=e.clientX+'px';re.style.top=e.clientY+'px';});
 document.querySelectorAll('a,.work-item,.service-card,.section-dot,#phiTrigger').forEach(function(el){el.addEventListener('mouseenter',function(){document.body.classList.add('hovering');});el.addEventListener('mouseleave',function(){document.body.classList.remove('hovering');});});
@@ -481,7 +489,10 @@ var nv=document.getElementById('mainNav'),pb=document.getElementById('progressBa
 var secs=['hero','about','work','services','contact'],dots=document.querySelectorAll('.section-dot');
 window.addEventListener('scroll',function(){
   var sy=window.scrollY,dh=document.documentElement.scrollHeight-window.innerHeight;pb.style.width=(sy/dh)*100+'%';
-  var cur='hero';secs.forEach(function(id){var el=document.getElementById(id);if(el&&sy>=el.offsetTop-window.innerHeight*0.4)cur=id;});
+  var cur='hero';
+  // Check if near bottom of page first (for contact section)
+  if(sy+window.innerHeight>=document.documentElement.scrollHeight-50){cur='contact';}
+  else{secs.forEach(function(id){var el=document.getElementById(id);if(el&&sy>=el.offsetTop-window.innerHeight*0.4)cur=id;});}
   dots.forEach(function(d){d.classList.toggle('active',d.dataset.section===cur);});
 });
 dots.forEach(function(d){d.addEventListener('click',function(){var el=document.getElementById(d.dataset.section);if(el)el.scrollIntoView({behavior:'smooth'});});});
