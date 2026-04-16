@@ -43,7 +43,7 @@ section{position:relative;z-index:2}
 #hero{background:transparent;min-height:100vh;position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:60px 60px 60px;overflow:visible}
 .hero-footer{position:absolute;bottom:40px;left:60px;right:60px;display:flex;justify-content:flex-start;align-items:flex-end;opacity:0;animation:fadeIn 1s ease 1.2s forwards}
 .hero-coords a{font-size:11px;font-weight:300;letter-spacing:.04em;color:var(--mid);line-height:1.8;text-decoration:none;transition:color .3s}.hero-coords a:hover{color:var(--accent)}
-.scroll-hint{position:absolute;bottom:40px;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:8px;opacity:0;animation:fadeHint 1s ease 1.8s forwards;transition:opacity .5s}.scroll-hint.hidden{opacity:0 !important}
+.scroll-hint{position:absolute;bottom:40px;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:8px;opacity:0;animation:fadeHint 1s ease 1.8s forwards;transition:opacity 1.2s ease}.scroll-hint.hidden{opacity:0 !important;transition:opacity 1.5s ease}
 .scroll-hint span{font-size:10px;font-weight:300;letter-spacing:.15em;text-transform:uppercase;color:var(--black)}
 .scroll-hint .line{width:1px;height:36px;background:var(--black);animation:scrollLine 2s ease-in-out infinite}
 @keyframes scrollLine{0%{transform:scaleY(0);transform-origin:top}50%{transform:scaleY(1);transform-origin:top}51%{transform-origin:bottom}100%{transform:scaleY(0);transform-origin:bottom}}
@@ -216,7 +216,7 @@ section{display:flex;align-items:center}
 })();
 
 // Hide scroll hint
-(function(){var h=document.getElementById('scrollHint'),done=false;window.addEventListener('scroll',function(){if(!done&&window.scrollY>10){h.classList.add('hidden');done=true;}});})();
+(function(){var h=document.getElementById('scrollHint');window.addEventListener('scroll',function(){if(window.scrollY>10){h.classList.add('hidden');}else{h.classList.remove('hidden');}});})();
 
 // FULL-PAGE SHAPE CANVAS
 (function(){
