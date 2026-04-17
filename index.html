@@ -216,7 +216,7 @@ if(lmAlpha>0){
     var mDist=Math.max(lw,lh)*0.75+30;
     var mx2=lcx+Math.cos(mAngle)*mDist;
     var my2=lcy+Math.sin(mAngle)*mDist*0.7;
-    ctx.save();ctx.globalAlpha=lmAlpha*0.5;ctx.fillStyle=_b;ctx.font='300 8px Karla,sans-serif';ctx.textAlign='center';ctx.fillText(w,mx2,my2);ctx.restore();
+    ctx.save();ctx.globalAlpha=lmAlpha*0.5;ctx.fillStyle=_b;ctx.font='300 11px Karla,sans-serif';ctx.textAlign='center';ctx.fillText(w,mx2,my2);ctx.restore();
   });
 }
 shapes.nodes.forEach(function(n,i){
@@ -251,7 +251,7 @@ if(nmAlpha>0){
     var mD=nr+30;
     var mx3=nx+Math.cos(mAng)*mD;
     var my3=ny+Math.sin(mAng)*mD;
-    ctx.save();ctx.globalAlpha=nmAlpha*0.5;ctx.fillStyle=_b;ctx.font='300 7px Karla,sans-serif';ctx.textAlign='center';ctx.fillText(w,mx3,my3);ctx.restore();
+    ctx.save();ctx.globalAlpha=nmAlpha*0.5;ctx.fillStyle=_b;ctx.font='300 11px Karla,sans-serif';ctx.textAlign='center';ctx.fillText(w,mx3,my3);ctx.restore();
   });
 }
 // Arrow: origin pushed further out from left shape center
