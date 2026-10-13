@@ -1,12 +1,11 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
+<html lang="en"><head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Riley Yi</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT@0,9..144,300..700,0..100;1,9..144,300..700,0..100&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.googleapis.com/">
+<link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT@0,9..144,300..600,0..100;1,9..144,300..600,0..100&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
   :root {
     --bg: #fbeee6;
@@ -28,6 +27,9 @@
     --display: 'Fraunces', Georgia, serif;
     --mono: 'JetBrains Mono', ui-monospace, monospace;
     --ease: cubic-bezier(0.2, 0.8, 0.2, 1);
+    --page: 1040px;
+    --gutter: clamp(16px, 4vw, 32px);
+    --inset: clamp(22px, 4vw, 48px);
   }
 
   * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -64,7 +66,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 14px 32px;
+    padding: 12px max(var(--gutter), calc((100% - var(--page)) / 2 + var(--inset) - 0px));
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
     background: rgba(251, 238, 230, 0.78);
@@ -76,7 +78,7 @@
     color: var(--ink);
     font-weight: 400;
     font-family: var(--display);
-    font-size: 42px;
+    font-size: 34px;
     letter-spacing: -0.02em;
     font-variation-settings: "opsz" 48, "SOFT" 80;
     line-height: 1;
@@ -111,15 +113,18 @@
 
   /* ============ HERO ============ */
   .hero {
-    min-height: 70vh;
-    padding: 76px 32px 28px;
+    padding: 104px var(--inset) 48px;
     display: grid;
-    align-content: center;
-    max-width: 1180px;
+    grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr);
+    column-gap: 56px;
+    align-items: end;
+    width: min(var(--page), calc(100% - 2 * var(--gutter)));
     margin: 0 auto;
     position: relative;
     z-index: 2;
   }
+  .hero-main { min-width: 0; }
+  .hero-side { min-width: 0; padding-bottom: 10px; }
 
   .eyebrow {
     font-family: var(--mono);
@@ -149,13 +154,12 @@
   .hero h1 {
     font-family: var(--display);
     font-weight: 300;
-    font-size: clamp(48px, 8.8vw, 116px);
+    font-size: clamp(44px, 7vw, 84px);
     line-height: 0.92;
     letter-spacing: -0.035em;
     color: var(--ink);
     font-variation-settings: "opsz" 144, "SOFT" 80;
-    margin-bottom: 12px;
-    max-width: 14ch;
+    max-width: 12ch;
   }
   .hero h1 .line { display: block; overflow: hidden; }
   .hero h1 .line span {
@@ -179,8 +183,7 @@
   }
 
   .hero-sub {
-    margin-top: 24px;
-    max-width: 58ch;
+    max-width: 46ch;
     font-family: var(--display);
     font-size: clamp(17px, 1.5vw, 21px);
     line-height: 1.5;
@@ -196,11 +199,10 @@
   }
 
   .hero-stats {
-    margin-top: 44px;
+    margin-top: 32px;
     display: grid;
-    grid-template-columns: repeat(4, minmax(0, 1fr));
-    gap: 8px;
-    max-width: 760px;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 20px 16px;
     padding-top: 22px;
     border-top: 1px solid var(--rule);
     opacity: 0;
@@ -210,14 +212,11 @@
     display: flex;
     flex-direction: column;
     gap: 6px;
-    padding-right: 16px;
-    border-right: 1px dashed var(--rule);
-  }
-  .stat:last-child { border-right: none; }
+    }
   .stat-num {
     font-family: var(--display);
     font-weight: 300;
-    font-size: clamp(32px, 3.8vw, 46px);
+    font-size: clamp(30px, 3.4vw, 40px);
     line-height: 0.95;
     letter-spacing: -0.03em;
     color: var(--ink);
@@ -234,10 +233,10 @@
   }
   .stat-label {
     font-family: var(--mono);
-    font-size: 10px;
-    letter-spacing: 0.12em;
+    font-size: 11px;
+    letter-spacing: 0.1em;
     text-transform: uppercase;
-    color: var(--muted);
+    color: var(--ink-soft);
   }
 
   /* ============ SHARED SECTION CHROME ============ */
@@ -247,12 +246,11 @@
   .section-contact {
     position: relative;
     z-index: 2;
-    margin: 0 16px;
+    width: min(var(--page), calc(100% - 2 * var(--gutter)));
+    margin: 0 auto;
   }
   .inner {
-    max-width: 1148px;
-    margin: 0 auto;
-    padding: 64px 32px;
+    padding: 48px clamp(22px, 4vw, 48px);
   }
 
   /* About — DARK plum chapter */
@@ -293,15 +291,14 @@
     background: var(--bg);
     border-radius: 0 0 32px 32px;
   }
-  .section-contact .inner { padding: 56px 32px 48px; }
+  .section-contact .inner { padding: 40px clamp(22px, 4vw, 48px) 44px; }
 
   /* ============ SECTION HEAD ============ */
   .section-head {
-    display: grid;
-    grid-template-columns: 180px 1fr;
-    gap: 40px;
-    margin-bottom: 32px;
-    align-items: baseline;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-bottom: 28px;
   }
   .section-num {
     font-family: var(--mono);
@@ -324,7 +321,7 @@
   .section-head h2 {
     font-family: var(--display);
     font-weight: 300;
-    font-size: clamp(32px, 5.2vw, 58px);
+    font-size: clamp(30px, 4.2vw, 46px);
     line-height: 0.96;
     letter-spacing: -0.025em;
     color: var(--ink);
@@ -337,13 +334,15 @@
   }
 
   /* ============ ABOUT BODY ============ */
-  .prose {
+  .about-grid {
     display: grid;
-    grid-template-columns: 180px 1fr;
-    gap: 40px;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr);
+    gap: 48px;
+    align-items: start;
   }
+  .about-grid .section-head { margin-bottom: 0; }
   .body {
-    max-width: 56ch;
+    max-width: 58ch;
     font-size: 17px;
     line-height: 1.6;
     color: var(--ink-soft);
@@ -355,10 +354,10 @@
   .work { display: flex; flex-direction: column; }
   .work-row {
     display: grid;
-    grid-template-columns: 52px 1fr auto 160px;
+    grid-template-columns: 52px minmax(0, 1fr) 150px 170px;
     align-items: baseline;
-    gap: 24px;
-    padding: 22px 0;
+    gap: 20px;
+    padding: 18px 0;
     border-top: 1px solid var(--rule-soft);
     color: inherit;
     text-decoration: none;
@@ -387,7 +386,7 @@
   }
   .work-row .kind {
     font-family: var(--mono);
-    font-size: 10px;
+    font-size: 11px;
     letter-spacing: 0.12em;
     text-transform: uppercase;
     color: var(--muted);
@@ -395,7 +394,7 @@
   .work-row .year {
     font-family: var(--display);
     font-style: italic;
-    font-size: 14px;
+    font-size: 15px;
     color: var(--plum);
     text-align: right;
   }
@@ -411,17 +410,15 @@
     background: var(--bg-card);
     border: 1px solid var(--rule-soft);
     border-radius: 18px;
-    padding: 24px 22px;
-    transition: transform 0.4s var(--ease), border-color 0.3s ease, background 0.3s ease;
+    padding: 22px 20px;
+    transition: border-color 0.3s ease, background 0.3s ease;
     display: flex;
     flex-direction: column;
   }
   .pursuit:hover {
-    transform: translateY(-4px) rotate(-0.5deg);
     border-color: var(--accent-soft);
     background: #fff;
   }
-  .pursuit:nth-child(2n):hover { transform: translateY(-4px) rotate(0.5deg); }
   .pursuit .marker {
     font-family: var(--mono);
     font-size: 10px;
@@ -447,61 +444,71 @@
   }
   .pursuit p {
     font-size: 15px;
-    line-height: 1.5;
+    line-height: 1.55;
     color: var(--ink-soft);
   }
 
   /* ============ CONTACT ============ */
+  .contact .inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px 40px;
+    flex-wrap: wrap;
+  }
+  .cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    font-family: var(--mono);
+    font-size: 12px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--bg-card);
+    background: var(--accent);
+    border: 1px solid var(--accent);
+    padding: 14px 22px;
+    border-radius: 999px;
+    text-decoration: none;
+    transition: background 0.3s ease, color 0.3s ease;
+  }
+  .cta:hover { background: transparent; color: var(--accent); }
+  .cta svg { width: 15px; height: 15px; }
   .contact h2 {
     font-family: var(--display);
     font-weight: 300;
-    font-size: clamp(36px, 5.5vw, 64px);
+    font-size: clamp(32px, 4.6vw, 52px);
     line-height: 1.05;
     letter-spacing: -0.025em;
     color: var(--ink);
     font-variation-settings: "opsz" 96, "SOFT" 80;
-    max-width: 22ch;
+    max-width: 16ch;
   }
   .contact h2 em {
     font-style: italic;
     color: var(--accent);
     font-variation-settings: "opsz" 96, "SOFT" 100;
   }
-  .contact h2 a {
-    color: var(--accent);
-    text-decoration: none;
-    position: relative;
-    display: inline-block;
-  }
-  .contact h2 a::after {
-    content: '';
-    position: absolute;
-    left: 0; right: 0; bottom: 0.06em;
-    height: 3px;
-    background: var(--accent-soft);
-    border-radius: 2px;
-    transform-origin: left;
-    transform: scaleX(1);
-    transition: transform 0.5s var(--ease);
-  }
-  .contact h2 a:hover::after { transform: scaleX(0); transform-origin: right; }
-
+  
   /* ============ FOOTER ============ */
   footer {
-    padding: 22px 32px 28px;
+    padding: 24px var(--inset) 32px;
     display: flex;
     justify-content: space-between;
     align-items: center;
     font-family: var(--mono);
-    font-size: 10px;
-    letter-spacing: 0.12em;
+    font-size: 11px;
+    letter-spacing: 0.1em;
     text-transform: uppercase;
     color: var(--muted);
-    max-width: 1180px;
+    width: min(var(--page), calc(100% - 2 * var(--gutter)));
     margin: 0 auto;
     position: relative;
     z-index: 2;
   }
+
+  a:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+  .section-about a:focus-visible { outline-color: var(--accent-bright); }
 
   /* ============ REVEAL ============ */
   .reveal {
@@ -514,88 +521,67 @@
   .reveal.d2 { transition-delay: 0.12s; }
   .reveal.d3 { transition-delay: 0.18s; }
 
+  /* ============ TABLET ============ */
+  @media (max-width: 900px) {
+    .hero { grid-template-columns: 1fr; row-gap: 28px; padding-top: 92px; }
+    .hero h1 { max-width: 100%; }
+    .hero-stats { grid-template-columns: repeat(4, minmax(0, 1fr)); margin-top: 24px; }
+    .about-grid { grid-template-columns: 1fr; gap: 24px; }
+    .work-row { grid-template-columns: 44px minmax(0, 1fr) 150px; }
+    .work-row .year { display: none; }
+    .pursuits { grid-template-columns: repeat(2, 1fr); }
+  }
+
   /* ============ MOBILE ============ */
-  @media (max-width: 760px) {
-    nav { padding: 12px 18px; }
-    nav .mark { font-size: 32px; }
+  @media (max-width: 600px) {
+    nav .mark { font-size: 28px; }
     nav .nav-link span { display: none; }
-    nav .nav-link { padding: 8px 10px; }
+    nav .nav-link { padding: 9px 10px; }
     nav .nav-link svg { width: 14px; height: 14px; }
-    .hero {
-      min-height: auto;
-      padding: 68px 20px 28px;
-    }
-    .hero h1 { font-size: clamp(36px, 10vw, 60px); max-width: 100%; letter-spacing: -0.03em; }
-    .hero-sub { font-size: 16px; line-height: 1.55; margin-top: 20px; }
-    .hero-stats {
-      grid-template-columns: 1fr 1fr;
-      gap: 18px 8px;
-      margin-top: 32px;
-      padding-top: 20px;
-    }
-    .stat:nth-child(2) { border-right: none; }
+    .hero { padding-top: 80px; padding-bottom: 28px; }
+    .hero-sub { font-size: 16px; }
+    .hero-stats { grid-template-columns: 1fr 1fr; gap: 18px 12px; }
     .stat-num { font-size: 32px; }
-    .section-about,
-    .section-work,
-    .section-pursuits,
-    .section-contact {
-      margin: 0 8px;
-    }
+    .inner { padding: 36px 22px; }
     .section-about { border-radius: 24px 24px 0 0; }
     .section-contact { border-radius: 0 0 24px 24px; }
-    .inner { padding: 48px 22px; }
-    .section-contact .inner { padding: 56px 22px 44px; }
-    .section-head {
-      grid-template-columns: 1fr;
-      gap: 14px;
-      margin-bottom: 24px;
-    }
-    .prose { grid-template-columns: 1fr; gap: 14px; }
-    .body { font-size: 16px; }
-    .work-row {
-      grid-template-columns: 30px 1fr;
-      gap: 14px;
-      padding: 18px 0;
-      align-items: baseline;
-    }
-    .work-row .kind, .work-row .year { display: none; }
-    .work-row .title { font-size: 18px; line-height: 1.2; }
-    .work-row .idx { font-size: 9px; }
-    .pursuits { grid-template-columns: 1fr 1fr; gap: 10px; }
-    .pursuit { padding: 20px 16px; border-radius: 14px; }
-    .pursuit h3 { font-size: 20px; }
-    footer {
-      padding: 18px 20px 24px;
-      flex-direction: column;
-      gap: 8px;
-      align-items: flex-start;
-    }
+    .work-row { grid-template-columns: 40px minmax(0, 1fr); gap: 12px; padding: 16px 0; }
+    .work-row .idx { white-space: nowrap; }
+    .work-row .kind { display: none; }
+    .work-row .title { font-size: 18px; }
+    .pursuits { grid-template-columns: 1fr; gap: 10px; }
+    .contact .inner { flex-direction: column; align-items: flex-start; }
+    footer { flex-direction: column; gap: 8px; align-items: flex-start; }
   }
-  @media (max-width: 480px) {
-    .pursuits { grid-template-columns: 1fr; }
+
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { animation-duration: 0.01ms !important; animation-delay: 0s !important; transition-duration: 0.01ms !important; }
+    html { scroll-behavior: auto; }
   }
 </style>
-</head>
+<style>:is([id*='google_ads_iframe'],[id*='taboola-'],.taboolaHeight,.taboola-placeholder,#top-ad,#credential_picker_container,#credentials-picker-container,#credential_picker_iframe,#onetap_google_intermediate_iframe,[id*='google-one-tap-iframe'],#google-one-tap-popup-container,.google-one-tap__module,.google-one-tap-modal-div,.adthrive-auto-injected-player-container,.adthrive[id^="cls-video-container"]:has(.adthrive-auto-injected-player-container),#amp_floatingAdDiv,#ez-content-blocker-container) {display:none!important;min-height:0!important;height:0!important;}</style></head>
 <body>
+<div class="grain" aria-hidden="true"></div>
 
-<div class="grain"></div>
-
-<nav id="nav">
+<nav id="nav" class="scrolled">
   <span class="mark">Riley <em>Yi</em></span>
   <a class="nav-link" href="https://www.linkedin.com/in/riley-yi" target="_blank" rel="noopener" aria-label="LinkedIn">
     <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-      <path d="M20.45 20.45h-3.55v-5.57c0-1.33-.03-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.36V9h3.41v1.56h.05c.47-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12zM7.12 20.45H3.56V9h3.56v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.72v20.56C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.72V1.72C24 .77 23.2 0 22.22 0z"/>
+      <path d="M20.45 20.45h-3.55v-5.57c0-1.33-.03-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.36V9h3.41v1.56h.05c.47-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12zM7.12 20.45H3.56V9h3.56v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.72v20.56C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.72V1.72C24 .77 23.2 0 22.22 0z"></path>
     </svg>
     <span>Find me on LinkedIn</span>
   </a>
 </nav>
 
 <section class="hero">
+  <div class="hero-main">
   <h1>
     <span class="line"><span>I run the</span></span>
     <span class="line"><span>quiet <em>machinery</em></span></span>
     <span class="line"><span>behind big things.</span></span>
   </h1>
+  </div>
+  <div class="hero-side">
   <p class="hero-sub">
     Ten years of operations across <em>healthcare</em>, <em>retail</em>, and <em>tech</em>. Find the system, map the gaps, get the right people in the room. Ship.
   </p>
@@ -617,17 +603,17 @@
       <span class="stat-label">Very small dogs</span>
     </div>
   </div>
+  </div>
 </section>
 
 <section class="section-about" id="about">
   <div class="inner">
-    <div class="section-head">
-      <span class="section-num"><b>01</b>About</span>
-      <h2 class="reveal">I make complicated things <em>run</em>.</h2>
-    </div>
-    <div class="prose">
-      <span></span>
-      <div class="body reveal d1">
+    <div class="about-grid">
+      <div class="section-head">
+        <span class="section-num"><b>01</b>About</span>
+        <h2 class="reveal in">I make complicated things <em>run</em>.</h2>
+      </div>
+      <div class="body reveal d1 in">
         <p>A decade running operations across <em>healthcare, retail, and technology</em>. The contexts change. The work doesn't. Find the system. Map the gaps. Get the right people in the room. Ship.</p>
         <p>I'm good at the unglamorous middle layer, where strategy meets a vendor contract, a regulatory deadline, and a spreadsheet nobody owns. I read the contract. I walk the floor. I talk to the person doing the actual job.</p>
         <p>An engineer’s mindset, evolved for <em>global scale</em>.</p>
@@ -640,28 +626,28 @@
   <div class="inner">
     <div class="section-head">
       <span class="section-num"><b>02</b>What I do</span>
-      <h2 class="reveal">The shape of the <em>work</em>.</h2>
+      <h2 class="reveal in">The shape of the <em>work</em>.</h2>
     </div>
     <div class="work">
-      <div class="work-row reveal">
+      <div class="work-row reveal in">
         <span class="idx">N° 01</span>
         <span class="title">Drawing the map. Building the <em>plane</em>.</span>
         <span class="kind">Process design</span>
         <span class="year">Zero to running</span>
       </div>
-      <div class="work-row reveal d1">
+      <div class="work-row reveal d1 in">
         <span class="idx">N° 02</span>
         <span class="title">Running vendors and <em>budgets</em></span>
         <span class="kind">Operations</span>
         <span class="year">Multi-million scope</span>
       </div>
-      <div class="work-row reveal d2">
+      <div class="work-row reveal d2 in">
         <span class="idx">N° 03</span>
         <span class="title">Turning data into <em>decisions</em></span>
         <span class="kind">KPIs · Dashboards</span>
         <span class="year">SQL · Python</span>
       </div>
-      <div class="work-row reveal d3">
+      <div class="work-row reveal d3 in">
         <span class="idx">N° 04</span>
         <span class="title">Expanding into new <em>geographies</em></span>
         <span class="kind">Cross-functional</span>
@@ -675,25 +661,25 @@
   <div class="inner">
     <div class="section-head">
       <span class="section-num"><b>03</b>Off the clock</span>
-      <h2 class="reveal">What I do when I'm <em>not</em> working.</h2>
+      <h2 class="reveal in">What I do when I'm <em>not</em> working.</h2>
     </div>
     <div class="pursuits">
-      <div class="pursuit reveal">
+      <div class="pursuit reveal in">
         <span class="marker">01 / Outside</span>
         <h3>Gravel <em>cycling</em></h3>
         <p>Long days on dirt with good company. The rhythm of a ride resets something nothing else touches.</p>
       </div>
-      <div class="pursuit reveal d1">
+      <div class="pursuit reveal d1 in">
         <span class="marker">02 / Vertical</span>
         <h3>Ice <em>climbing</em></h3>
         <p>Problem-solving in the cold. No room to think about anything else when you're on the wall.</p>
       </div>
-      <div class="pursuit reveal d2">
+      <div class="pursuit reveal d2 in">
         <span class="marker">03 / Local</span>
         <h3>Civic <em>life</em></h3>
         <p>Showing up for the neighborhood. The quiet work that makes a place feel like home.</p>
       </div>
-      <div class="pursuit reveal d3">
+      <div class="pursuit reveal d3 in">
         <span class="marker">04 / Home</span>
         <h3>Two <em>dogs</em></h3>
         <p>A French Bulldog and a Pug. They don't care about roadmaps. That's the point.</p>
@@ -704,16 +690,17 @@
 
 <section class="section-contact contact" id="contact">
   <div class="inner">
-    <h2 class="reveal">
-      Let's <em>talk</em>.<br>
-      <a href="https://www.linkedin.com/in/riley-yi" target="_blank" rel="noopener">LinkedIn</a>
-    </h2>
+    <h2 class="reveal in">Let's <em>talk</em>.</h2>
+    <a class="cta reveal d1 in" href="https://www.linkedin.com/in/riley-yi" target="_blank" rel="noopener">
+      <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.45 20.45h-3.55v-5.57c0-1.33-.03-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.36V9h3.41v1.56h.05c.47-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12zM7.12 20.45H3.56V9h3.56v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.72v20.56C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.72V1.72C24 .77 23.2 0 22.22 0z"/></svg>
+      Connect on LinkedIn
+    </a>
   </div>
 </section>
 
 <footer>
   <span>© 2026 Riley Yi · San Francisco</span>
-  <span id="version">v.—</span>
+  <span id="version">v.f286</span>
 </footer>
 
 <script>
@@ -769,5 +756,6 @@
   })();
 </script>
 
-</body>
-</html>
+
+
+</body></html>
